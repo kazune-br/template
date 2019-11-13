@@ -11,6 +11,8 @@ $ docker-compose up
 
 ## How to verify user registration and authentication by JWT
 
+* you can also verify authentication by using swagger. In order to use swagger, access localhost:8080
+
 ### (1) Register user
 ```
 # by django shell
