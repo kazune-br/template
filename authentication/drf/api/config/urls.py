@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
-# from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from . import views
 
@@ -28,8 +27,6 @@ urlpatterns = [
     path('api/v1/', include('users.urls')),
     path('api/v1/auth/jwt/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/v1/auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    # path('api/v1/auth/jwt/create/', obtain_jwt_token, name='publish_jwt_token'),
-    # path('api/v1/auth/jwt/refresh/', refresh_jwt_token, name='refresh_jwt_token'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
