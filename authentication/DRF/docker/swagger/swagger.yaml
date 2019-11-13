@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  version: 3.0.0
+  title: Nous Web API
+servers:
+  - url: http://localhost:{port}{basePath}
+    description: Development
+    variables:
+      port:
+        default: 80
+      basePath:
+        default: /api
+
+tags:
+  - name: v1
+    description: "api v1"
+
+security:
+  - bearerAuth: []
+
+paths:
+  /v1/users/:
+    get:
+      tags:
+        - v1
+      summary: Users#list
+      responses:
+        200:
+          description: 200 OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - email: "sample1@gmail.com"
+                  uuid: "ee7fd01e-f21d-49fb-b1ae-256c7d0ed5ff"
+                  username: "sampleuser1"
+                - email: "sample2@gmail.com"
+                  uuid: "ee7fd01e-f21d-49fb-b1ae-256c7d0ed5ff"
+                  username: "sampleuser2"
+
+    post:
+      tags:
+        - v1
+      summary: Users#create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              {
+                "username":"sampleuser1",
+                "email":"sample1@gmail.com",
+                "password":"Nous0001"
+              }
+
+      responses:
+        200:
+          description: 200 OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                {
+                  "username":"sampleuser1",
+                  "email":"sample1@gmail.com",
+                  "uuid":"ee7fd01e-f21d-49fb-b1ae-256c7d0ed5ff",
+                }
+
+  /v1/auth/jwt/token/:
+    post:
+      tags:
+        - v1
+      summary: JWT#create
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+            example:
+              {
+                "username":"sampleuser1",
+                "password":"Nous0001"
+              }
+
+      responses:
+        200:
+          description: 200 OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                {
+                  "refresh":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU3MzY3ODYyNiwianRpIjoiMjU1OTM0NzZhOWM0NDA5ODgzOTc0M2I5MDRiNTliMzAiLCJ1dWlkIjoiNDEyMmIxYjItNWUwNS00MTFhLWE1NTQtODcwMWQ0ZTkyN2FhIn0.P2rD8l1iUxKy8ROeF1xBa3dQb83sRkv4_aKCMAEreI0",
+                  "access":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNTczNTkyNTI2LCJqdGkiOiJjZDg4NzdkODYxYzk0Y2VkYTFlMjUzZjM3NzY2YjJlMCIsInV1aWQiOiI0MTIyYjFiMi01ZTA1LTQxMWEtYTU1NC04NzAxZDRlOTI3YWEifQ.9Ja91_QvWmUKcgOZmIRN_aIN3JdozpBf6kWwA3bJ7TU"
+                }
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    user_name:
+      name: user_name
+      in: path
+      schema:
+        type: string
+      example: "sample"

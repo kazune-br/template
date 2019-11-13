@@ -1,0 +1,65 @@
+version: '3.7'
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    command: nginx -g 'daemon off;'
+    volumes:
+      - ./docker/nginx/conf.d/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - drf
+    labels:
+      - Env=dev
+      - com.datadoghq.ad.check_names=["nginx"]
+      - com.datadoghq.ad.instances=[{"nginx_status_url":"http://nginx/server-status"}]
+      - com.datadoghq.ad.init_configs=[{}]
+
+  drf:
+    container_name: drf
+    build:
+      context: ./
+      dockerfile: ./docker/api/Dockerfile
+    image: drf:latest
+    command: ash -c "sh ./wait.sh && python manage.py makemigrations && python manage.py migrate && gunicorn -w 1 --bind 0.0.0.0:8000 config.wsgi"
+    volumes:
+      - ./api:/api
+    ports:
+      - 8000:8000
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: drf
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+
+  swagger:
+    image: swaggerapi/swagger-ui:latest
+    container_name: swagger
+    ports:
+      - 8080:8080
+    volumes:
+      - ./docker/swagger/swagger.yaml:/swagger.yaml
+    environment:
+      SWAGGER_JSON: /swagger.yaml
+
+  datadog-agent:
+    image: datadog/agent:latest
+    container_name: datadog
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    environment:
+      - DD_API_KEY=${DD_API_KEY}
+      - DD_APM_ENABLED=true
+      - DD_APM_ENV=web
+      - DD_HOSTNAME=localhost
+      - SD_BACKEND=docker
+      - NON_LOCAL_TRAFFIC=false

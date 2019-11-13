@@ -1,0 +1,12 @@
+.env
+
+.idea/
+.DS_Store/
+__pycache__/
+pycache/
+/log/*
+*.log
+*.pot
+*.pyc
+
+node_modules
