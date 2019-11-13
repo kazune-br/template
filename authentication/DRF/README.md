@@ -48,17 +48,4 @@ $ curl localhost/api/v1/users/me/ -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJh
 ## JWTの再発行
 $ curl -X POST localhost/api/v1/auth/jwt/refresh/ --data 'refresh=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTU3MzY3ODYyNiwianRpIjoiMjU1OTM0NzZhOWM0NDA5ODgzOTc0M2I5MDRiNTliMzAiLCJ1dWlkIjoiNDEyMmIxYjItNWUwNS00MTFhLWE1NTQtODcwMWQ0ZTkyN2FhIn0.P2rD8l1iUxKy8ROeF1xBa3dQb83sRkv4_aKCMAEreI0'
 >>> {"access":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3BrIjoxLCJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiY29sZF9zdHVmZiI6IuKYgyIsImV4cCI6MTIzNTY3LCJqdGkiOiJjNzE4ZTVkNjgzZWQ0NTQyYTU0NWJkM2VmMGI0ZGQ0ZSJ9.ekxRxgb9OKmHkfy-zs1Ro_xs1eMLXiR17dIDBVxeT-w"}
-
-
-# Original JWT
-## JWTの発行
-$ curl -X POST localhost/api/v1/auth/jwt/create/ --data 'username=HIGE&email=hige@gmail.com&password=Ss20190903'
->>> {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZWU3ZmQwMWUtZjIxZC00OWZiLWIxYWUtMjU2YzdkMGVkNWZmIiwidXNlcm5hbWUiOiJISUdFIiwiZXhwIjoxNTY3NTk4NzE0LCJlbWFpbCI6ImhpZ2VAZ21haWwuY29tIn0.Ce9lZ-UU-uZEUv1BVoKibMx0OnLIzNucAaenLraV6Uo"}
-
-## JWT: Tokenを付随して個人情報を取得
-$ curl localhost/api/v1/users/me/ -H 'Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZTQ4N2MwMWUtMjY0Mi00YmZiLWFjOTEtYzI2YjFlYzZkYWUyIiwidXNlcm5hbWUiOiJISUdFIiwiZXhwIjoxNTczNTkxODk4LCJlbWFpbCI6ImhpZ2VAZ21haWwuY29tIiwib3JpZ19pYXQiOjE1NzM1OTE1OTh9.1_98wXznD1VhxTyk2BT8PhqGIuoyJB8LvUn9tBBrGME'
->>> {"email":"hige@gmail.com","uuid":"ee7fd01e-f21d-49fb-b1ae-256c7d0ed5ff","username":"HIGE"}
-
-## JWTの再発行
-$ curl -X POST localhost/api/v1/auth/jwt/refresh/ --data 'token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiZWU3ZmQwMWUtZjIxZC00OWZiLWIxYWUtMjU2YzdkMGVkNWZmIiwidXNlcm5hbWUiOiJISUdFIiwiZXhwIjoxNTY3NTk4NzE0LCJlbWFpbCI6ImhpZ2VAZ21haWwuY29tIn0.Ce9lZ-UU-uZEUv1BVoKibMx0OnLIzNucAaenLraV6Uo'
 ```
