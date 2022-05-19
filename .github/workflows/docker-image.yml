@@ -33,6 +33,8 @@ jobs:
       run: echo ${{ steps.step_name.outputs.url_output }}
     - name: get the check run id for each job
       run: |
-        CHECK_SUITE_URL=$(curl -s -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID} | jq -r '.check_suite_url')
-        CHECK_RUN_ID=$(curl -s -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.antiope-preview+json" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | select(.name=="prcheck (${{ matrix.os }})") | .id ')
-        echo $CHECK_RUN_ID
+        CHECK_SUITE_URL=$(curl -s -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/kazune-br/template/actions/runs/${{ github.run_id }} | jq -r '.check_suite_url')
+        echo $CHECK_SUITE_URL
+        curl -s -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.antiope-preview+json" $CHECK_SUITE_URL/check-runs | jq '.check_runs[]'
+        # CHECK_RUN_ID=$(curl -s -H "authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Accept: application/vnd.github.antiope-preview+json" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | select(.name=="prcheck (${{ matrix.os }})") | .id ')
+        # echo $CHECK_RUN_ID
