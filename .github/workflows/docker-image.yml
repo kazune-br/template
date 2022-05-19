@@ -23,9 +23,11 @@ jobs:
       run: echo '${{ toJSON(matrix) }}'
     - name: Dump env context
       run: echo '${{ toJSON(env) }}'
-    - name: Dump env context
+    - name: Dump runner context
       run: echo '${{ toJSON(runner) }}'
     - name: Dump needs context
       run: echo '${{ toJSON(needs) }}'
-    - name: Dump needs context
+    - name: Dump inputs context
       run: echo '${{ toJSON(inputs) }}'
+    - name: url
+      run: echo ${{ steps.step_name.outputs.url_output }}
