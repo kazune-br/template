@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Sample
-      run: echo ${{ job.container.id }}
+      run: echo ${{ job }}
