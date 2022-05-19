@@ -21,3 +21,11 @@ jobs:
       run: echo '${{ toJSON(job) }}'
     - name: Dump matrix context
       run: echo '${{ toJSON(matrix) }}'
+    - name: Dump env context
+      run: echo '${{ toJSON(env) }}'
+    - name: Dump env context
+      run: echo '${{ toJSON(runner) }}'
+    - name: Dump needs context
+      run: echo '${{ toJSON(needs) }}'
+    - name: Dump needs context
+      run: echo '${{ toJSON(inputs) }}'
