@@ -14,5 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: ${{ job.container.id }}
+    - name: Sample
+      run: echo ${{ job.container.id }}
