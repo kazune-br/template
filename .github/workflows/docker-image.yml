@@ -7,11 +7,11 @@ on:
     branches: [ develop ]
 
 jobs:
-
-  build:
-
+  example_matrix:
+    strategy:
+      matrix:
+        version: [10, 12, 14]
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3 
     - name: Dump GitHub context
